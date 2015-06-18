@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"io/ioutil"
@@ -16,7 +16,7 @@ func TestFileServer(t *testing.T) {
 		log.Fatal("Please provide the TEST_DIR environment parameter for testing")
 	}
 
-	ts := httptest.NewServer(fileServer(test_dir))
+	ts := httptest.NewServer(New(test_dir))
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)

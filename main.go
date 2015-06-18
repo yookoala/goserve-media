@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/yookoala/goserve-media/server"
 	"log"
 	"net/http"
 	"os"
@@ -64,10 +65,6 @@ func validDir(path string) (err error) {
 	return
 }
 
-func fileServer(dir string) http.Handler {
-	return http.FileServer(http.Dir(dir))
-}
-
 func main() {
 
 	// check if provided dir is a valid dir
@@ -81,5 +78,5 @@ func main() {
 	// some logs before starting
 	log.Printf("Listening to port %d", *port)
 	log.Printf("Serving path: %s", dir)
-	log.Fatal(http.ListenAndServe(portStr, fileServer(dir)))
+	log.Fatal(http.ListenAndServe(portStr, server.New(dir)))
 }
